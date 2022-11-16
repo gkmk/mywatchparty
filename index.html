@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Watch Party</title>
+
+    <!-- Primary Meta Tags -->
+    <title>My Watch Party - Watch your favorite streamers in One place</title>
+    <meta name="title" content="My Watch Party - Watch your favorite streamers in One place">
+    <meta name="description"
+        content="All your favorite streamers in one place. No more 100 opened tabs trying to keep up with everyone. Watch all streams from YouTube, Twitch, Facebook Gaming">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mywatchparty.com/">
+    <meta property="og:title" content="My Watch Party - Watch your favorite streamers in One place">
+    <meta property="og:description"
+        content="All your favorite streamers in one place. No more 100 opened tabs trying to keep up with everyone. Watch all streams from YouTube, Twitch, Facebook Gaming">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://mywatchparty.com/">
+    <meta property="twitter:title" content="My Watch Party - Watch your favorite streamers in One place">
+    <meta property="twitter:description"
+        content="All your favorite streamers in one place. No more 100 opened tabs trying to keep up with everyone. Watch all streams from YouTube, Twitch, Facebook Gaming">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'blue': '#415A77',
+                        'purple': '#778DA9',
+                        'pink': '#ff49db',
+                        'orange': '#ff7849',
+                        'green': '#13ce66',
+                        'yellow': '#ffc82c',
+                        'gray-dark': '#0D1B2A',
+                        'gray': '#1B263B',
+                        'gray-light': '#E0E1DD',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Quicksand', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="main.css">
+
+    <!-- Load the Twitch embed script -->
+    <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+
+    <!-- Load My Watch Party -->
+    <script src="main.js"></script>
+</head>
+
+<body class="bg-gray-dark">
+    <div class="container mx-auto py-5" id="container">
+        <div onclick="MVP.openLoadDialog()" id="add-video"
+            class="grid bg-gray-light hover:bg-purple p-2 rounded-lg text-center h-screen content-center">
+            <span>+ ADD STREAM +</span>
+        </div>
+    </div>
+
+    <script>var MVP = new MyWatchParty()</script>
+</body>
+
+</html>
