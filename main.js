@@ -33,11 +33,12 @@ class MyWatchParty {
      * Allow user to enter video url
      */
     openLoadDialog() {
-        this.videoUrl = prompt("Copy video url from Twitch, YouTube or Facebook");
+        if (this.videoUrl = prompt("Copy video url from Twitch, YouTube or Facebook")) {
+            this.processVideoUrl();
 
-        this.processVideoUrl();
+            this.toggleMainButton();
+        }
 
-        this.toggleMainButton();
     }
 
     /**
@@ -94,7 +95,7 @@ class MyWatchParty {
     createEmbedVideo(videoFrame) {
         const provider = this.getVideoProvider()
         videoFrame.dataset.provider = provider;
-        
+
         switch (provider) {
             case "twitch":
                 this.embedTwitch()
@@ -116,11 +117,7 @@ class MyWatchParty {
         let options = {
             width: "100%",
             height: "100%",
-            channel: this.videoUrl.substring(this.videoUrl.lastIndexOf("/") + 1),
-            // video: "<video ID>",
-            // collection: "<collection ID>",
-            // only needed if your site is also embedded on embed.example.com and othersite.example.com
-            // parent: ["embed.example.com", "othersite.example.com"]
+            channel: this.videoUrl.substring(this.videoUrl.lastIndexOf("/") + 1)
         };
 
         this.videoPlayers["mvp-" + this.videoWindows] =
@@ -131,17 +128,20 @@ class MyWatchParty {
      * Create player and start youtube video
      */
     embedYoutube() {
-        const regex = /(watch\?v\=)(.*)\&/;
-        let videoId = this.videoUrl.match(regex);
+        let videoId = "";
+        if (this.videoUrl.includes("youtu.be")) {
+            videoId = this.videoUrl.substring(this.videoUrl.lastIndexOf("/") + 1);
+        } else {
+            const regex = /(watch\?v\=)(.*)\&/;
+            videoId = this.videoUrl.match(regex)[2];
+        }
 
         const youtubeOptions = {
             width: "100%",
             height: "100%",
-            videoId: videoId[2],
+            videoId,
             events: {
-                'onReady': this.onYoutubePlayerReady,
-                // 'onStateChange': onPlayerStateChange,
-                // 'onError': onPlayerError
+                'onReady': this.onYoutubePlayerReady
             }
         };
         this.videoPlayers["mvp-" + this.videoWindows] =
