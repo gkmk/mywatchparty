@@ -105,6 +105,10 @@ class MyWatchParty {
                 this.embedYoutube()
                 break;
 
+            case "facebook":
+                this.embedFacebook()
+                break;
+
             default:
                 break;
         }
@@ -155,6 +159,25 @@ class MyWatchParty {
     onYoutubePlayerReady(event) {
         event.target.setVolume(100);
         event.target.playVideo();
+    }
+
+    /**
+     * Embed video from Facebook
+     */
+    embedFacebook() {
+        let videoDiv = document.getElementById("my-watch-party-" + this.videoWindows);
+
+        let fbEmbed = document.createElement("iframe");
+        fbEmbed.src = "https://www.facebook.com/plugins/video.php?href=" + this.videoUrl;
+        fbEmbed.width = "100%";
+        fbEmbed.height = "100%";
+        fbEmbed.style = "border:none;overflow:hidden";
+        fbEmbed.scrolling = "no";
+        fbEmbed.frameborder = "0";
+        fbEmbed.allowfullscreen = "true";
+        fbEmbed.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
+
+        videoDiv.append(fbEmbed);
     }
 
     /**
