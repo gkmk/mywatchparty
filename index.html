@@ -54,6 +54,15 @@
 
     <link rel="stylesheet" href="main.css">
 
+    <!-- Load YouTube embed script -->
+    <script>
+        // Load the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/player_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+
     <!-- Load the Twitch embed script -->
     <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 

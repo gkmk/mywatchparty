@@ -19,7 +19,7 @@ class MyWatchParty {
      * 
      */
     constructor() {
-        document.addEventListener("keydown", this.keyListener);
+        document.addEventListener("keydown", (ev) => this.keyListener(ev));
 
         this.container = document.getElementById("container");
         this.mainAddVideoButton = document.getElementById("add-video");
@@ -83,7 +83,7 @@ class MyWatchParty {
         videoFrame.classList.add("w-full", "aspect-video");
         this.container.append(videoFrame);
 
-        this.createEmbedVideo();
+        this.createEmbedVideo(videoFrame);
 
         this.videoWindows++;
     }
@@ -91,10 +91,17 @@ class MyWatchParty {
     /**
      * Find proper video provider and create its player
      */
-    createEmbedVideo() {
-        switch (this.getVideoProvider()) {
+    createEmbedVideo(videoFrame) {
+        const provider = this.getVideoProvider()
+        videoFrame.dataset.provider = provider;
+        
+        switch (provider) {
             case "twitch":
                 this.embedTwitch()
+                break;
+
+            case "youtube":
+                this.embedYoutube()
                 break;
 
             default:
@@ -118,6 +125,36 @@ class MyWatchParty {
 
         this.videoPlayers["mvp-" + this.videoWindows] =
             new Twitch.Player("my-watch-party-" + this.videoWindows, options);
+    }
+
+    /**
+     * Create player and start youtube video
+     */
+    embedYoutube() {
+        const regex = /(watch\?v\=)(.*)\&/;
+        let videoId = this.videoUrl.match(regex);
+
+        const youtubeOptions = {
+            width: "100%",
+            height: "100%",
+            videoId: videoId[2],
+            events: {
+                'onReady': this.onYoutubePlayerReady,
+                // 'onStateChange': onPlayerStateChange,
+                // 'onError': onPlayerError
+            }
+        };
+        this.videoPlayers["mvp-" + this.videoWindows] =
+            new YT.Player("my-watch-party-" + this.videoWindows, youtubeOptions);
+    }
+
+    /**
+     * Play youtube when ready
+     * @param {*} event 
+     */
+    onYoutubePlayerReady(event) {
+        event.target.setVolume(100);
+        event.target.playVideo();
     }
 
     /**
