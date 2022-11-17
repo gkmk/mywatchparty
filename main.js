@@ -15,6 +15,12 @@ class MyWatchParty {
     /** The main big add video button */
     mainAddVideoButton;
 
+    /** The classes applied to minimized screens */
+    static smallScreenClass = "w-1/5 max-h-40 aspect-video border-slate-500 border-solid border-2 rounded";
+
+    /** The main screen class */
+    static mainScreenClass = "main-screen order-first bg-black w-full aspect-video p-2 border-slate-400 border-double border-4 rounded";
+
     /**
      * 
      */
@@ -78,15 +84,56 @@ class MyWatchParty {
      * Create HTML element and embed player
      */
     loadAndDisplayVideo() {
+        this.togglePreviousPlayer();
+
+        this.videoWindows++;
+
+        this.toggleMainScreen();
+
+        this.createEmbedVideo(
+            this.addNewPartyScreen()
+        );
+
+    }
+
+    /**
+     * Mute previous player if possible
+     */
+    togglePreviousPlayer() {
+        // no previous players check
+        if (this.videoWindows === 0) return;
+
+        // get the previous player
+        let player = this.videoPlayers["mvp-" + this.videoWindows];
+
+        if (player) {
+            player.mute();
+        }
+    }
+
+    /**
+     * Remove old screen and make room for the next
+     */
+    toggleMainScreen() {
+        const mainScreen = document.getElementsByClassName('main-screen')[0];
+        if (mainScreen)
+            mainScreen.className = MyWatchParty.smallScreenClass;
+    }
+
+    /**
+     * 
+     * Create the next main screen
+     *
+     * @returns DOMNode
+     */
+    addNewPartyScreen() {
         let videoFrame = document.createElement("div");
         videoFrame.id = "my-watch-party-" + this.videoWindows;
         videoFrame.dataset.playerId = this.videoWindows;
-        videoFrame.classList.add("w-full", "aspect-video");
+        videoFrame.className = MyWatchParty.mainScreenClass;
         this.container.append(videoFrame);
 
-        this.createEmbedVideo(videoFrame);
-
-        this.videoWindows++;
+        return videoFrame;
     }
 
     /**
@@ -132,24 +179,32 @@ class MyWatchParty {
      * Create player and start youtube video
      */
     embedYoutube() {
-        let videoId = "";
-        if (this.videoUrl.includes("youtu.be")) {
-            videoId = this.videoUrl.substring(this.videoUrl.lastIndexOf("/") + 1);
-        } else {
-            const regex = /(watch\?v\=)(.*)\&/;
-            videoId = this.videoUrl.match(regex)[2];
-        }
+        const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+        let videoId = this.videoUrl.match(regex)[1];
 
         const youtubeOptions = {
             width: "100%",
             height: "100%",
             videoId,
+            playerVars: {
+                'playsinline': 1,
+                'enablejsapi': 1
+            },
             events: {
                 'onReady': this.onYoutubePlayerReady
             }
         };
+
+        // For some reason youtube converts the element into iframe
+        // Add sub element for them
+        const yiframe = document.createElement("div");
+        yiframe.id = "youtube-" + this.videoWindows;
+        const mainFrame = document.getElementById("my-watch-party-" + this.videoWindows);
+        mainFrame.append(yiframe);
+
+        // then let youtube do its thing
         this.videoPlayers["mvp-" + this.videoWindows] =
-            new YT.Player("my-watch-party-" + this.videoWindows, youtubeOptions);
+            new YT.Player("youtube-" + this.videoWindows, youtubeOptions);
     }
 
     /**
