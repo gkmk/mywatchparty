@@ -74,13 +74,16 @@
 </head>
 
 <body class="bg-gray-dark">
-    <div class="fixed top-0 left-0 right-0 text-white text-sm text-center">Press + on keyboard to add more streams</div>
+    <div class="fixed top-0 left-0 right-0 text-white text-sm text-center" id="helper-box">Press + on keyboard to add
+        more streams</div>
     <div class="container mx-auto py-5">
         <div class="flex gap-2 flex-wrap" id="container">
         </div>
         <div onclick="MwP.openLoadDialog()" id="add-video"
-            class="bg-gray-light hover:bg-purple py-20 rounded-lg text-center">
-            <span>+ ADD STREAM +</span>
+            class="bg-gray-light hover:bg-blue hover:text-white py-20 my-10 rounded-lg text-center">
+            <h1>My Watch Party</h1>
+            <br>
+            <p>Click here or press + (plus) on your keyboard to add stream</p>
         </div>
     </div>
 
