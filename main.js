@@ -86,6 +86,7 @@ class MyWatchParty {
     loadAndDisplayVideo() {
         this.togglePreviousPlayer();
 
+        //  update video index
         this.videoWindows++;
 
         this.toggleMainScreen();
@@ -106,8 +107,16 @@ class MyWatchParty {
         // get the previous player
         let player = this.videoPlayers["mvp-" + this.videoWindows];
 
+        //  if we have active player try to mute video
         if (player) {
-            player.mute();
+            const videoFrame = document.getElementById("my-watch-party-" + this.videoWindows);
+
+            if (videoFrame.dataset.provider === "youtube") {
+                player.mute();
+            } else if (videoFrame.dataset.provider === "twitch") {
+                player.setMuted(true)
+            }
+            // no way to pause facebook...maybe do something to its iframe?
         }
     }
 
