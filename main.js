@@ -16,10 +16,10 @@ class MyWatchParty {
     mainAddVideoButton;
 
     /** The classes applied to minimized screens */
-    static smallScreenClass = "aspect-video border-slate-500 ring-1 rounded";
+    static smallScreenClass = "relative aspect-video border-slate-500 ring-1 rounded";
 
     /** The main screen class */
-    static mainScreenClass = "main-screen order-first bg-black col-span-5 aspect-video p-2 outline-slate-700 outline-double rounded shadow-lg";
+    static mainScreenClass = "main-screen relative order-first bg-black col-span-5 aspect-video p-2 outline-slate-700 outline-double rounded shadow-lg";
 
     /**
      * 
@@ -84,37 +84,31 @@ class MyWatchParty {
      * Create HTML element and embed player
      */
     loadAndDisplayVideo() {
-        this.togglePreviousPlayer();
+        // Minimize the current main screen
+        this.minimizeMainScreen();
 
-        //  update video index
-        this.videoWindows++;
-
-        this.toggleMainScreen();
-
+        // Embed new video and attach to main screen
         this.createEmbedVideo(
             this.addNewPartyScreen()
         );
 
+        //  update video index
+        this.videoWindows++;
     }
 
     /**
-     * Mute previous player if possible
+     * Mute selected screen
      */
-    togglePreviousPlayer() {
-        // no previous players check
-        if (this.videoWindows === 0) return;
-
+    setMutePlayerForScreen(mute, screenId, provider) {
         // get the previous player
-        let player = this.videoPlayers["mvp-" + this.videoWindows];
+        let player = this.videoPlayers["mvp-" + screenId];
 
         //  if we have active player try to mute video
         if (player) {
-            const videoFrame = document.getElementById("my-watch-party-" + this.videoWindows);
-
-            if (videoFrame.dataset.provider === "youtube") {
-                player.mute();
-            } else if (videoFrame.dataset.provider === "twitch") {
-                player.setMuted(true)
+            if (provider === "youtube") {
+                mute ? player.mute() : player.unMute();
+            } else if (provider === "twitch") {
+                player.setMuted(mute)
             }
             // no way to pause facebook...maybe do something to its iframe?
         }
@@ -123,10 +117,41 @@ class MyWatchParty {
     /**
      * Remove old screen and make room for the next
      */
-    toggleMainScreen() {
+    minimizeMainScreen() {
         const mainScreen = document.getElementsByClassName('main-screen')[0];
-        if (mainScreen)
+        if (mainScreen) {
+            // minimize screen
             mainScreen.className = MyWatchParty.smallScreenClass;
+
+            // mute the player
+            this.setMutePlayerForScreen(true, mainScreen.dataset.playerId, mainScreen.dataset.provider)
+
+            // attach maximize event
+            let overlay = document.createElement("div");
+            overlay.className = "absolute backdrop-grayscale w-full h-full";
+            overlay.onclick = (e) => this.maximizeScreen(e.target, mainScreen.id)
+            mainScreen.prepend(overlay);
+        }
+    }
+
+    /**
+     * Maximize some screen
+     * 
+     * @param {string} screenId 
+     */
+    maximizeScreen(overlay, screenId) {
+        screen = document.getElementById(screenId);
+        if (screen) {
+            // minimize current main screen
+            this.minimizeMainScreen();
+
+            // maximize selected screen
+            screen.className = MyWatchParty.mainScreenClass;
+            // remove click bound
+            overlay.remove();
+            // unmute
+            this.setMutePlayerForScreen(false, screen.dataset.playerId, screen.dataset.provider)
+        }
     }
 
     /**
