@@ -16,10 +16,10 @@ class MyWatchParty {
     mainAddVideoButton;
 
     /** The classes applied to minimized screens */
-    static smallScreenClass = "relative aspect-video border-slate-500 ring-1 rounded";
+    static smallScreenClass = "relative overflow-hidden aspect-video border-slate-500 ring-1 rounded";
 
     /** The main screen class */
-    static mainScreenClass = "main-screen relative order-first bg-black col-span-5 aspect-video p-2 outline-slate-700 outline-double rounded shadow-lg";
+    static mainScreenClass = "main-screen relative overflow-hidden order-first bg-black col-span-5 aspect-video p-2 outline-slate-700 outline-double rounded shadow-lg";
 
     /**
      * 
