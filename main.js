@@ -19,7 +19,7 @@ class MyWatchParty {
     static smallScreenClass = "relative overflow-hidden aspect-video border-slate-500 ring-1 rounded";
 
     /** The main screen class */
-    static mainScreenClass = "main-screen relative overflow-hidden order-first bg-black col-span-5 aspect-video p-2 outline-slate-700 outline-double rounded shadow-lg";
+    static mainScreenClass = "main-screen relative overflow-hidden order-first bg-black row-span-4 col-span-4 aspect-video p-2 mt-2 outline-slate-700 outline-double rounded shadow-lg";
 
     /**
      * 
