@@ -1,0 +1,35 @@
+@import "variables";
+@import "fonts";
+@import "spacers";
+@import "animations";
+
+.task-body {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	font-family: 'Arial MT', sans-serif;
+	color: $body-text-primary;
+
+	* {
+		box-sizing: border-box;
+		padding: 0;
+		margin: 0;
+	}
+
+	// .container {
+	// 	max-width: 1200px;
+	// 	margin: auto;
+	// 	padding-left: ($spacer * 1.5) !important;
+	// 	padding-right: ($spacer * 1.5) !important;
+	// }
+
+	@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Quicksand:wght@600&display=swap');
+
+	div, iframe {
+		transition: all 500ms;
+	}
+
+
+	@import "menu";
+	@import "form-styles";
+}

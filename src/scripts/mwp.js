@@ -22,7 +22,7 @@ class MyWatchParty {
     static mainScreenClass = "main-screen relative overflow-hidden order-first bg-black row-span-4 col-span-4 aspect-video p-2 mt-2 outline-slate-700 outline-double rounded shadow-lg";
 
     /**
-     * 
+     *
      */
     constructor() {
         document.addEventListener("keydown", (ev) => this.keyListener(ev));
@@ -38,8 +38,8 @@ class MyWatchParty {
     /**
      * Allow user to enter video url
      */
-    openLoadDialog() {
-        if (this.videoUrl = prompt("Copy video url from Twitch, YouTube or Facebook")) {
+    openLoadDialog(videoUrl = '') {
+        if (this.videoUrl = videoUrl ? videoUrl : prompt("Copy video url from Twitch, YouTube or Facebook")) {
             this.processVideoUrl();
 
             this.toggleMainButton();
@@ -136,8 +136,8 @@ class MyWatchParty {
 
     /**
      * Maximize some screen
-     * 
-     * @param {string} screenId 
+     *
+     * @param {string} screenId
      */
     maximizeScreen(overlay, screenId) {
         screen = document.getElementById(screenId);
@@ -155,7 +155,7 @@ class MyWatchParty {
     }
 
     /**
-     * 
+     *
      * Create the next main screen
      *
      * @returns DOMNode
@@ -243,7 +243,7 @@ class MyWatchParty {
 
     /**
      * Play youtube when ready
-     * @param {*} event 
+     * @param {*} event
      */
     onYoutubePlayerReady(event) {
         event.target.setVolume(100);
@@ -285,8 +285,8 @@ class MyWatchParty {
 
     /**
      * Binds specific keyboard shortcuts
-     * 
-     * @param {KeyboardEvent} event 
+     *
+     * @param {KeyboardEvent} event
      * @returns void
      */
     keyListener(event) {

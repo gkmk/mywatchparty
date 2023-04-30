@@ -2,14 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+	<title>Page Title</title>
+	<meta name="keywords" content="watch,stream,party">
+	<meta name="robots" content="index, follow">
+	<meta name="language" content="English">
+
+	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Watch Party</title>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/browser-icon2.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/browser-icon2.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/browser-icon2.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/browser-icon2.png">
     <link rel="manifest" href="/site.webmanifest">
 
     <!-- Primary Meta Tags -->
@@ -34,54 +39,22 @@
         content="All your favorite streamers in one place. No more 100 opened tabs trying to keep up with everyone. Watch all streams from YouTube, Twitch, Facebook Gaming">
     <meta property="twitter:image" content="https://mywatchparty.com/icon.png">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'blue': '#415A77',
-                        'purple': '#778DA9',
-                        'pink': '#ff49db',
-                        'orange': '#ff7849',
-                        'green': '#13ce66',
-                        'yellow': '#ffc82c',
-                        'gray-dark': '#0D1B2A',
-                        'gray': '#1B263B',
-                        'gray-light': '#E0E1DD',
-                    },
-                    fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
-                        serif: ['Quicksand', 'serif'],
-                    },
-                }
-            }
-        }
-    </script>
-
-    <link rel="stylesheet" href="main.css">
-
-    <!-- Load YouTube embed script -->
-    <script>
-        // Load the IFrame Player API code asynchronously.
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/player_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        function onYouTubeIframeAPIReady() {
-            console.log("YouTube api ready")
-        }
-    </script>
-
-    <!-- Load the Twitch embed script -->
-    <script src="https://player.twitch.tv/js/embed/v1.js"></script>
-
-    <!-- Load My Watch Party -->
-    <script src="main.js"></script>
+	<link rel="stylesheet" href="styles/app.css">
 </head>
 
-<body class="bg-gray-dark">
-    <div class="fixed top-0 left-0 right-0 text-white text-sm text-center" id="helper-box">
+<body class="task-body">
+	<nav role="navigation" class="main-nav">
+		<ul class="main-nav-list container px-4">
+			<li class="logo my-3">
+				<a class="logo-link" href="/" title="test">
+					<img width="50" src="images/logo.png" alt="logo">
+					Platfrom admin
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="fixed top-0 left-0 right-0 text-white text-sm text-center" id="helper-box">
         Press + on keyboard to add more streams
         <small>(report bugs and request features <a href="https://github.com/gkmk/mywatchparty">here</a>)</small>
     </div>
@@ -97,7 +70,23 @@
         </div>
     </div>
 
-    <script>var MwP = new MyWatchParty();</script>
+	<!-- Load YouTube embed script -->
+	<script>
+		// Load the IFrame Player API code asynchronously.
+		var tag = document.createElement('script');
+		tag.src = "https://www.youtube.com/player_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		function onYouTubeIframeAPIReady() {
+			console.log("YouTube api ready")
+		}
+	</script>
+
+	<!-- Load the Twitch embed script -->
+	<script src="https://player.twitch.tv/js/embed/v1.js"></script>
+
+	<!-- Load My Watch Party -->
+	<script src="scripts/app.js"></script>
 </body>
 
 </html>
