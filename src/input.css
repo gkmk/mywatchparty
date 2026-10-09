@@ -1,0 +1,132 @@
+/* Source stylesheet. Run `npm run build` to regenerate main.css. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    a {
+        @apply underline underline-offset-2 hover:text-yellow;
+    }
+
+    :focus-visible {
+        @apply outline outline-2 outline-offset-2 outline-yellow;
+    }
+}
+
+@layer components {
+    .btn {
+        @apply inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+    }
+
+    .btn-primary {
+        @apply btn bg-gray-light text-gray-dark hover:bg-yellow;
+    }
+
+    .btn-secondary {
+        @apply btn bg-gray text-gray-light ring-1 ring-blue hover:bg-blue;
+    }
+
+    /*
+     * Screens never move in the DOM (moving an iframe reloads it), so the
+     * main screen is pulled to the front with `order` and spans the grid.
+     */
+    .screens {
+        @apply mx-auto grid grid-cols-2 gap-3;
+        grid-auto-flow: dense;
+        max-width: calc((100dvh - 6rem) * 2.2);
+    }
+
+    @screen md {
+        .screens {
+            @apply grid-cols-5;
+        }
+    }
+
+    .screen {
+        @apply relative aspect-video self-start overflow-hidden rounded bg-black ring-1 ring-slate-600;
+    }
+
+    .screen.is-main {
+        @apply order-first col-span-2 shadow-lg ring-2 ring-purple;
+    }
+
+    @screen md {
+        .screen.is-main {
+            grid-column: 1 / span 4;
+            grid-row: 1 / span 4;
+        }
+    }
+
+    .screen-player,
+    .screen-player iframe {
+        @apply h-full w-full border-0;
+    }
+
+    .screen:not(.is-main) .screen-player {
+        filter: grayscale(1) brightness(0.8);
+        transition: filter 300ms;
+    }
+
+    .screen:not(.is-main):hover .screen-player,
+    .screen:not(.is-main):focus-within .screen-player {
+        filter: grayscale(0.3);
+    }
+
+    /* Clickable layer over minimized screens; hidden on the main one so the player stays usable */
+    .screen-select {
+        @apply absolute inset-0 z-10 h-full w-full cursor-pointer;
+    }
+
+    .screen.is-main .screen-select {
+        @apply hidden;
+    }
+
+    .screen-bar {
+        @apply pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center gap-1 bg-gradient-to-b from-black/80 to-transparent p-1 text-xs text-white opacity-0 transition-opacity;
+    }
+
+    .screen:hover .screen-bar,
+    .screen:focus-within .screen-bar,
+    .screen:not(.is-main) .screen-bar {
+        @apply opacity-100;
+    }
+
+    @media (hover: none) {
+        .screen-bar {
+            @apply opacity-100;
+        }
+    }
+
+    .screen-bar > * {
+        @apply pointer-events-auto;
+    }
+
+    .screen-label {
+        @apply pointer-events-none mr-auto truncate px-1;
+    }
+
+    .screen-action {
+        @apply rounded bg-black/60 px-2 py-1 hover:bg-blue;
+    }
+
+    .screen:not(.is-main) .screen-mute {
+        @apply hidden;
+    }
+
+    /* Facebook's SDK sizes its own wrappers; force them to fill the screen */
+    .screen .fb-video,
+    .screen .fb-video > span,
+    .screen .fb-video iframe {
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}
