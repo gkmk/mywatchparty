@@ -15,15 +15,25 @@
 
 @layer components {
     .btn {
-        @apply inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+        @apply inline-flex items-center gap-2 rounded-xl border-2 px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
     }
 
     .btn-primary {
-        @apply btn bg-gray-light text-gray-dark hover:bg-yellow;
+        @apply btn border-gray-light bg-gray-light text-gray-dark hover:border-yellow hover:bg-yellow;
     }
 
     .btn-secondary {
-        @apply btn bg-gray text-gray-light ring-1 ring-blue hover:bg-blue;
+        @apply btn border-blue bg-gray text-gray-light enabled:hover:bg-blue;
+    }
+
+    /* Platform buttons on the landing screen, styled like the social preview image */
+    .chip {
+        @apply btn border-blue bg-gray px-5 py-2 text-xl text-gray-light hover:border-purple hover:bg-blue;
+    }
+
+    .hero-logo {
+        @apply shrink-0 rounded-[2.5rem] p-8 md:p-10;
+        background: radial-gradient(circle, #778DA9 0%, #415A77 55%, #1B263B 100%);
     }
 
     /*

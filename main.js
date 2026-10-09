@@ -400,6 +400,12 @@ class Screen {
 class MyWatchParty {
     static STORAGE_KEY = "mwp-state";
     static SHORTCUTS_KEY = "mwp-shortcuts";
+    static EXAMPLES = {
+        twitch: ["Twitch", "https://www.twitch.tv/name"],
+        youtube: ["YouTube", "https://www.youtube.com/watch?v=…"],
+        kick: ["Kick", "https://kick.com/name"],
+        facebook: ["Facebook", "https://www.facebook.com/…/videos/…"],
+    };
 
     constructor() {
         /** @type {Screen[]} */
@@ -410,13 +416,15 @@ class MyWatchParty {
         this.emptyState = document.getElementById("empty-state");
         this.status = document.getElementById("status");
         this.dialog = document.getElementById("add-dialog");
+        this.dialogTitle = document.getElementById("add-dialog-title");
         this.form = document.getElementById("add-form");
         this.input = document.getElementById("stream-url");
         this.error = document.getElementById("stream-url-error");
         this.shareButton = document.getElementById("share-button");
         this.shortcutsToggle = document.getElementById("shortcuts-toggle");
 
-        document.querySelectorAll("[data-action=add]").forEach((b) => b.addEventListener("click", () => this.openAddDialog()));
+        document.querySelectorAll("[data-action=add]").forEach((b) =>
+            b.addEventListener("click", () => this.openAddDialog(b.dataset.platform)));
         this.shareButton.addEventListener("click", () => this.copyShareLink());
         this.form.addEventListener("submit", (ev) => this.onAddSubmit(ev));
         this.input.addEventListener("input", () => this.showError(""));
@@ -454,7 +462,11 @@ class MyWatchParty {
         setTimeout(() => (this.status.textContent = message), 50);
     }
 
-    openAddDialog() {
+    /** @param {string} [platform] pre-selected from the platform buttons, only changes the wording */
+    openAddDialog(platform) {
+        const example = MyWatchParty.EXAMPLES[platform];
+        this.dialogTitle.textContent = example ? "Add a " + example[0] + " stream" : "Add a stream";
+        this.input.placeholder = example ? example[1] : "Paste a stream link";
         this.input.value = "";
         this.showError("");
         this.dialog.showModal();
@@ -594,7 +606,7 @@ class MyWatchParty {
         const hasScreens = this.screens.length > 0;
         this.emptyState.classList.toggle("hidden", hasScreens);
         this.container.classList.toggle("hidden", !hasScreens);
-        this.shareButton.disabled = !hasScreens;
+        this.shareButton.classList.toggle("hidden", !hasScreens);
         this.save();
     }
 
