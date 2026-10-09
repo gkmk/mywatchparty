@@ -3,7 +3,7 @@
   "private": true,
   "description": "Watch multiple live streams from Twitch, YouTube, Kick and Facebook on one page.",
   "scripts": {
-    "build": "tailwindcss -i ./src/input.css -o ./main.css --minify",
+    "build": "tailwindcss -i ./src/input.css -o ./main.css --minify && node scripts/version-assets.js",
     "watch": "tailwindcss -i ./src/input.css -o ./main.css --watch",
     "test": "node --test tests/*.test.js"
   },

@@ -16,7 +16,7 @@ It's a static site: `index.html`, `main.js` and the generated `main.css`, served
 ```sh
 npm install
 npm run watch   # rebuild main.css while editing
-npm run build   # minified main.css (commit it, Pages serves it as is)
+npm run build   # minified main.css + cache-busting ?v= hashes in index.html (commit both)
 npm test        # unit tests for link parsing and share links
 ```
 

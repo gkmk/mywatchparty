@@ -57,12 +57,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Quicksand:wght@600;700&display=swap">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="main.css?v=61d5d27e">
 
-    <script src="main.js" defer></script>
+    <script src="main.js?v=70c89e18" defer></script>
 </head>
 
-<body class="min-h-screen bg-gray-dark font-sans text-gray-light">
+<body class="flex min-h-screen flex-col bg-gray-dark font-sans text-gray-light">
     <a href="#main"
         class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-yellow focus:p-2 focus:text-gray-dark">Skip
         to content</a>
@@ -77,18 +77,18 @@
         <button type="button" class="btn-secondary hidden" id="share-button">Copy share link</button>
     </header>
 
-    <main id="main" tabindex="-1" class="px-4 pb-6 outline-none">
+    <main id="main" tabindex="-1" class="flex flex-1 flex-col px-4 pb-6 outline-none">
         <section id="empty-state"
-            class="mx-auto flex max-w-5xl flex-col items-center gap-10 py-10 md:flex-row md:gap-16 md:py-16">
+            class="m-auto flex w-full max-w-6xl flex-col items-center justify-center gap-10 py-10 lg:flex-row lg:gap-20">
             <div class="hero-logo">
                 <img src="logo-hero.webp" alt="My Watch Party monster holding a TV screen" width="277" height="320"
-                    class="h-56 w-auto md:h-80">
+                    class="h-56 w-auto sm:h-72 lg:h-96">
             </div>
-            <div class="text-center md:text-left">
-                <h2 class="text-balance font-display text-4xl font-bold leading-tight sm:text-5xl">Watch multiple streams at once
+            <div class="max-w-2xl text-center lg:text-left">
+                <h2 class="text-balance font-display text-4xl font-bold leading-[1.1] sm:text-5xl lg:text-6xl">Watch multiple streams at once
                 </h2>
-                <p class="mt-4 text-xl text-purple">All your favorite streamers on one page. No more 100 open tabs.</p>
-                <div class="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
+                <p class="mt-5 text-balance text-xl text-purple lg:text-2xl">All your favorite streamers on one page. No more 100 open tabs.</p>
+                <div class="mt-10 flex flex-wrap justify-center gap-3 lg:justify-start">
                     <button type="button" class="chip" data-action="add" data-platform="twitch"
                         aria-label="Add a Twitch stream"><span aria-hidden="true">+</span> Twitch</button>
                     <button type="button" class="chip" data-action="add" data-platform="youtube"
@@ -101,7 +101,7 @@
             </div>
         </section>
 
-        <div id="screens" class="screens hidden" tabindex="-1" aria-label="Streams"></div>
+        <div id="screens" class="screens hidden w-full" tabindex="-1" aria-label="Streams"></div>
     </main>
 
     <footer class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-4 py-6 text-xs text-purple">

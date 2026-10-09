@@ -8,6 +8,10 @@
         @apply underline underline-offset-2 hover:text-yellow;
     }
 
+    kbd {
+        @apply rounded border border-blue px-1 font-sans text-gray-light;
+    }
+
     :focus-visible {
         @apply outline outline-2 outline-offset-2 outline-yellow;
     }
@@ -32,7 +36,7 @@
     }
 
     .hero-logo {
-        @apply shrink-0 rounded-[2.5rem] p-8 md:p-10;
+        @apply shrink-0 rounded-[2.5rem] p-8 lg:p-12;
         background: radial-gradient(circle, #778DA9 0%, #415A77 55%, #1B263B 100%);
     }
 
